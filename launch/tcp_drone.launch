@@ -9,14 +9,15 @@
 
     <param name="pose_freq" value="10"/>
     <param name="gps_freq" value="10"/>
-    <param name="vel_freq" value="10"/>
-    <param name="battery_freq" value="10"/>
-    <param name="state_freq" value="10"/>
+    <param name="vel_freq" value="1"/>
+    <param name="battery_freq" value="1"/>
+    <param name="state_freq" value="1"/>
     <param name="ryState_freq" value="10"/>
     <param name="alt_freq" value="10"/>
-    <param name="waypoint_freq" value="10"/>
+    <param name="waypoint_freq" value="1"/>
+    <param name="traj_freq" value="1"/>
 
-    <param name="drone_num" value="10"/>
+    <param name="drone_num" value="13"/>
       <param name="drone_ip_0" value="192.168.1.150" type="string"/>
       <param name="drone_ip_1" value="192.168.1.151" type="string"/>
       <param name="drone_ip_2" value="192.168.1.152" type="string"/>
@@ -27,9 +28,12 @@
       <param name="drone_ip_7" value="192.168.1.157" type="string"/>
       <param name="drone_ip_8" value="192.168.1.158" type="string"/>
       <param name="drone_ip_9" value="192.168.1.159" type="string"/>
+      <param name="drone_ip_10" value="192.168.1.160" type="string"/>
+      <param name="drone_ip_11" value="192.168.1.161" type="string"/>
+      <param name="drone_ip_12" value="192.168.1.162" type="string"/>
 
     <param name="ground_station_num" value="1"/>
-    <param name="ground_station_ip_0" value="192.168.1.6" type="string"/>
+    <param name="ground_station_ip_0" value="192.168.1.200" type="string"/>
 
     <param name="pub_occupancy" value="true" type="bool"/>
 

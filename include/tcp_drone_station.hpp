@@ -22,9 +22,7 @@
 #include <mavros_msgs/WaypointPush.h>
 #include <mavros_msgs/WaypointSetCurrent.h>
 #include <mavros_msgs/SetMode.h>
-// #include <mavros_msgs/CommandTOL.h>
-// #include <mavros_msgs/CommandHome.h>
-// #include <mavros_msgs/CommandLong.h>
+#include <mavros_msgs/Trajectory.h>
 
 //睿沿SDK
 #include "ruiyan_ros_sdk/RuiyanControl.h"
@@ -46,6 +44,7 @@ double state_freq_;
 double ryState_freq_;
 double alt_freq_;
 double waypoint_freq_;
+double traj_freq_;
 
 vector<int> id_list_;
 vector<string> ip_list_;

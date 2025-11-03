@@ -14,6 +14,7 @@ ros::Publisher* waypoint_list_pubs = nullptr;
 ros::Publisher* gps_pubs = nullptr;
 ros::Publisher* ryState_pub_ = nullptr; // 飞机到地面：吊舱当前角度
 ros::Publisher* alt_pub_ = nullptr; // 飞机到地面：吊舱当前角度
+ros::Publisher* traj_pub_ = nullptr; // 飞机到地面：轨迹
 
 std::vector<ros::Subscriber> waypoint_list_subs_; // 地面到飞机：航点下发
 std::vector<ros::Subscriber> ryCtrl_subs_; // 地面到飞机：吊舱角度控制指令
@@ -37,6 +38,7 @@ void waypoint_list_bridge_cb(int ID, ros::SerializedMessage &m); // 飞机到地
 void gps_bridge_cb(int ID, ros::SerializedMessage &m); // 飞机到地面：GPS消息
 void ryState_bridge_cb(int ID, ros::SerializedMessage &m); // 飞机到地面：吊舱当前角度
 void alt_bridge_cb(int ID, ros::SerializedMessage &m); // 飞机到地面：高度信息
+void traj_bridge_cb(int ID, ros::SerializedMessage &m); // 飞机到地面：轨迹
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "swarm_bridge");
@@ -133,6 +135,10 @@ int main(int argc, char **argv) {
     if (bridge->register_callback(i, "/alt_tcp_" + std::to_string(i), alt_bridge_cb))
     {
       ROS_INFO("Register alt callback for drone %d", i);
+    }
+    if (bridge->register_callback(i, "/traj_tcp_" + std::to_string(i), traj_bridge_cb))
+    {
+      ROS_INFO("Register traj callback for drone %d", i);
     }
   }
 
@@ -238,4 +244,10 @@ void alt_bridge_cb(int ID, ros::SerializedMessage &m) {
   std_msgs::Float64 alt_msg_;
   ros::serialization::deserializeMessage(m, alt_msg_);
   alt_pub_[ID].publish(alt_msg_);
+}
+
+void traj_bridge_cb(int ID, ros::SerializedMessage &m) {
+  mavros_msgs::Trajectory traj_msg_;
+  ros::serialization::deserializeMessage(m, traj_msg_);
+  traj_pub_[ID].publish(traj_msg_);
 }

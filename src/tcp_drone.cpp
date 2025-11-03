@@ -27,6 +27,7 @@ ros::Subscriber waypoint_list_sub_; // 飞机到地面：当前航点列表
 ros::Subscriber gps_sub_ ; //飞机到地面：GPS信息
 ros::Subscriber ryState_sub_; // 飞机到地面：吊舱当前角度
 ros::Subscriber alt_sub_; // 飞机到地面：吊舱当前角度
+ros::Subscriber traj_sub_; // 飞机到地面：轨迹
 
 void takeoff_command_bridge_cb(int ID, ros::SerializedMessage &m); // 地面到飞机：起飞指令
 void land_command_bridge_cb(int ID, ros::SerializedMessage &m);    // 地面到飞机：降落或返航指令
@@ -44,6 +45,7 @@ void waypoint_list_sub_cb(const mavros_msgs::WaypointList::ConstPtr &msg); // �
 void gps_sub_cb(const sensor_msgs::NavSatFix::ConstPtr &msg); //飞机到地面：GPS信息
 void ryState_sub_cb(const ruiyan_ros_sdk::RuiyanState::ConstPtr &msg); // 飞机到地面：吊舱当前角度
 void alt_sub_cb(const std_msgs::Float64::ConstPtr &msg); // 飞机到地面：吊舱当前角度
+void traj_sub_cb(const mavros_msgs::Trajectory::ConstPtr &msg); // 飞机到地面：轨迹
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "swarm_bridge");
@@ -63,6 +65,7 @@ int main(int argc, char **argv) {
   nh.param("ryState_freq",  ryState_freq_, 10.0);
   nh.param("alt_freq",  alt_freq_, 10.0);
   nh.param("waypoint_freq",  waypoint_freq_, 1.0);
+  nh.param("traj_freq",  traj_freq_, 1.0);
 
   // 配置 ID & IP
   id_list_.resize(drone_num_ + ground_station_num_);
@@ -87,7 +90,8 @@ int main(int argc, char **argv) {
   waypoint_list_sub_ = nh.subscribe("/mavros/mission/waypoints", 10, waypoint_list_sub_cb, ros::TransportHints().tcpNoDelay());
   gps_sub_ = nh.subscribe("/mavros/global_position/global", 10, gps_sub_cb, ros::TransportHints().tcpNoDelay());
   alt_sub_ = nh.subscribe("/mavros/global_position/rel_alt", 10, alt_sub_cb, ros::TransportHints().tcpNoDelay());
-  ryState_sub_ = nh.subscribe("/state_info", 10, ryState_sub_cb, ros::TransportHints().tcpNoDelay()); 
+  ryState_sub_ = nh.subscribe("/state_info", 10, ryState_sub_cb, ros::TransportHints().tcpNoDelay());
+  traj_sub_ = nh.subscribe("/mavros/trajectory/desired", 10, traj_sub_cb, ros::TransportHints().tcpNoDelay());
 
   waypoint_client = nh.serviceClient<mavros_msgs::WaypointPush>("/mavros/mission/push");
   set_current_client = nh.serviceClient<mavros_msgs::WaypointSetCurrent>("/mavros/mission/set_current");
@@ -294,5 +298,14 @@ void alt_sub_cb(const std_msgs::Float64::ConstPtr &msg){
   if ((t_now - t_last).toSec() *  alt_freq_ < 1.0) return;
   t_last = t_now;
   std::string topic = "/alt_tcp_" + std::to_string(self_id_in_bridge_);
+  send_to_all_groundstation_except_me(topic, *msg);
+}
+
+void traj_sub_cb(const mavros_msgs::Trajectory::ConstPtr &msg){
+  static ros::Time t_last;
+  ros::Time t_now = ros::Time::now();
+  if ((t_now - t_last).toSec() *  traj_freq_ < 1.0) return;
+  t_last = t_now;
+  std::string topic = "/traj_tcp_" + std::to_string(self_id_in_bridge_);
   send_to_all_groundstation_except_me(topic, *msg);
 }
