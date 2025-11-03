@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
   gps_sub_ = nh.subscribe("/mavros/global_position/global", 10, gps_sub_cb, ros::TransportHints().tcpNoDelay());
   alt_sub_ = nh.subscribe("/mavros/global_position/rel_alt", 10, alt_sub_cb, ros::TransportHints().tcpNoDelay());
   ryState_sub_ = nh.subscribe("/state_info", 10, ryState_sub_cb, ros::TransportHints().tcpNoDelay());
-  traj_sub_ = nh.subscribe("/mavros/trajectory/desired", 10, traj_sub_cb, ros::TransportHints().tcpNoDelay());
+  traj_sub_ = nh.subscribe("/mavros/trajectory/generated", 10, traj_sub_cb, ros::TransportHints().tcpNoDelay());
 
   waypoint_client = nh.serviceClient<mavros_msgs::WaypointPush>("/mavros/mission/push");
   set_current_client = nh.serviceClient<mavros_msgs::WaypointSetCurrent>("/mavros/mission/set_current");

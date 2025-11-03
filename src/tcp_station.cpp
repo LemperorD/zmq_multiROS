@@ -73,6 +73,7 @@ int main(int argc, char **argv) {
   gps_pubs = new ros::Publisher[drone_num_];
   ryState_pub_ = new ros::Publisher[drone_num_];
   alt_pub_ = new ros::Publisher[drone_num_];
+  traj_pub_ = new ros::Publisher[drone_num_];
 
   for (int i = 0; i < drone_num_; ++i) {
     pose_pubs[i] = nh.advertise<geometry_msgs::PoseStamped>("/drone_"  + std::to_string(i) + "/pose", 10);
@@ -83,6 +84,7 @@ int main(int argc, char **argv) {
     gps_pubs[i] = nh.advertise<sensor_msgs::NavSatFix>("/drone_"  + std::to_string(i) +"/gps" , 10);
     ryState_pub_[i] = nh.advertise<ruiyan_ros_sdk::RuiyanState>("/drone_"  + std::to_string(i) +"/ryState" , 10);
     alt_pub_[i] = nh.advertise<std_msgs::Float64>("/drone_"  + std::to_string(i) +"/alt" , 10);
+    traj_pub_[i] = nh.advertise<mavros_msgs::Trajectory>("/drone_"  + std::to_string(i) +"/traj" , 10);
   }
 
   for (int i = 0; i < drone_num_; ++i) {
