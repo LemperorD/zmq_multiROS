@@ -16,6 +16,7 @@
     <param name="alt_freq" value="5"/>
     <param name="waypoint_freq" value="10"/>
     <param name="traj_freq" value="5"/>
+    <param name="fov_freq" value="0.5"/>
 
     <param name="drone_num" value="13"/>
       <param name="drone_ip_0" value="192.168.1.150" type="string"/>
