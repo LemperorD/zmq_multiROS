@@ -23,6 +23,7 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   mavros_msgs
   ruiyan_ros_sdk
+  visualization_msgs
 )
 
 catkin_package(

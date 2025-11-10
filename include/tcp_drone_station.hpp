@@ -45,6 +45,7 @@ double ryState_freq_;
 double alt_freq_;
 double waypoint_freq_;
 double traj_freq_;
+double fov_freq_;
 
 vector<int> id_list_;
 vector<string> ip_list_;

@@ -57,8 +57,6 @@
   <build_depend>pcl_ros</build_depend>  <!-- 添加 pcl_ros 依赖 -->
   <build_depend>pcl_conversions</build_depend>  <!-- 添加 pcl_conversions 依赖 -->
   <build_depend>nav_msgs</build_depend>
-  
-
 
 
   <exec_depend>roscpp</exec_depend>
