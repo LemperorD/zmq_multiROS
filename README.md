@@ -1,14 +1,12 @@
-地面到飞机
-- 起飞指令
-- 航点信息
-- 吊舱视角
-- 降落或返航
+# zmq_multiROS
 
-飞机到地面
-- 电池状态 1hz
-- 飞机位姿 10hz
-- 飞机速度 10hz
-- 飞机状态 1hz
-- avoidance相关 5hz
-- 吊舱视频
-- 当前飞机的航点信息 1hz
+a C++ package used to provide communication between multiple ROS/ROS2 PC
+
+🚧: the project is coming soon...
+
+## ToDolist:
+- [ ] doc to install ROS/ROS2
+- [ ] doc to install libzmq & zmqpp
+- [ ] subscriber/publisher
+- [ ] server/client
+- [ ] actions
