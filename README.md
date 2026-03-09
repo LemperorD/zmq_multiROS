@@ -27,10 +27,25 @@ wget http://fishros.com/install -O fishros && . fishros
 
 ### 3. Install libzmq & zmqpp
 
+#### a. libzmq
+```bash
+sudo apt install libzmq3-dev
+```
+
+#### b. zmqpp
+```bash
+mkdir ~/tools # u can use other folds to save the repo
+git clone https://github.com/zeromq/zmqpp.git
+cd zmqpp
+mkdir build && cd build 
+cmake ..
+make -j4
+sudo make install
+```
 
 ## B. ToDolist:
 - [X] doc to install ROS/ROS2
-- [ ] doc to install libzmq & zmqpp
+- [X] doc to install libzmq & zmqpp
 - [ ] subscriber/publisher
 - [ ] server/client
 - [ ] actions
