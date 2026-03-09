@@ -4,10 +4,32 @@ a C++ package used to provide communication between multiple ROS/ROS2 PC
 
 > Initially, the project will focus on local area network communication using zmqpp.
 
-🚧: the project is coming soon...
+> 🚧: the project is coming soon...
 
-## ToDolist:
-- [ ] doc to install ROS/ROS2
+# A. Install
+
+### 1. Clone to your PC
+
+```bashrc
+git clone https://github.com/LemperorD/zmq_multiROS.git
+```
+
+### 2. Install ROS/ROS2 (Robot Operating System)
+
+[ROS Install Guide](https://wiki.ros.org/Installation/Ubuntu) 
+/ [ROS2 Install Guide](https://docs.ros.org/en/jazzy/Installation.html)
+
+But I **strongly recommend to use the fishros** to install.
+
+```bashrc
+wget http://fishros.com/install -O fishros && . fishros
+```
+
+### 3. Install libzmq & zmqpp
+
+
+## B. ToDolist:
+- [X] doc to install ROS/ROS2
 - [ ] doc to install libzmq & zmqpp
 - [ ] subscriber/publisher
 - [ ] server/client
